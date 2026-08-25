@@ -65,9 +65,10 @@ MAX_PHOTOS = 3
 
 async def fetch_users(client):
     from telethon.tl.types import User
+    from telethon.tl.functions.contacts import GetContactsRequest
     seen = {}
 
-    result = await client.get_contacts()
+    result = await client(GetContactsRequest(hash=0))
     for u in result.users:
         if isinstance(u, User) and not u.bot:
             seen[u.id] = (u, True)
